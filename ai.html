@@ -3,7 +3,11 @@
 
     <head>
         <meta charset="utf-8">
+<<<<<<< HEAD
         <title>AI Analysis - StockAI</title>
+=======
+        <title>StockAI - AI Analysis</title>
+>>>>>>> 2de67edb6fbb06f791a5f5fa67656ce7ba0feecf
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
@@ -27,6 +31,7 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+<<<<<<< HEAD
 
         <style>
             .ai-container {
@@ -130,6 +135,11 @@
                 background: linear-gradient(to right, transparent, var(--primary-color, #0066ff), transparent);
                 margin: 30px 0;
             }
+=======
+        <style>
+            .decision-badge {font-size:1.1rem;padding:0.5rem 0.75rem;border-radius:0.375rem}
+            #log {height:200px; overflow:auto; background:#f8f9fa; padding:0.75rem; border-radius:6px}
+>>>>>>> 2de67edb6fbb06f791a5f5fa67656ce7ba0feecf
         </style>
     </head>
 
@@ -143,7 +153,11 @@
         </div>
         <!-- Spinner End -->
 
+<<<<<<< HEAD
         <!-- Navbar & Hero Start -->
+=======
+        <!-- Navbar Start -->
+>>>>>>> 2de67edb6fbb06f791a5f5fa67656ce7ba0feecf
         <div class="container-fluid position-relative p-0">
             <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
                 <a href="index.html" class="navbar-brand p-0">
@@ -161,6 +175,7 @@
                 </div>
             </nav>
         </div>
+<<<<<<< HEAD
         <!-- Navbar & Hero End -->
 
         <!-- AI Analysis Start -->
@@ -229,11 +244,78 @@
                             <h3><i class="fas fa-chart-pie me-2"></i>📊 AI Decision Results</h3>
                             <div id="resultContent"></div>
                         </div>
+=======
+        <!-- Navbar End -->
+
+
+        <!-- AI Analysis Content -->
+        <div class="container py-5">
+            <div class="text-center mx-auto pb-4" style="max-width:800px;">
+                <h4 class="text-primary">AI Trading Assistant</h4>
+                <h1 class="display-5 mb-3">Real-time BUY / SELL / HOLD Signals</h1>
+                <p class="mb-0">Generates live decisions using EMA crossover and RSI. Use simulated mode for demos or connect to Alpha Vantage.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="bg-white rounded p-4 shadow-sm">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Symbol</label>
+                                <input id="symbol" class="form-control" value="AAPL">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Mode</label>
+                                <select id="mode" class="form-control">
+                                    <option value="simulate">Simulate (recommended)</option>
+                                    <option value="alphavantage">Alpha Vantage (requires API key)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4" id="apiKeyWrap" style="display:none;">
+                                <label class="form-label">Alpha Vantage API Key</label>
+                                <input id="apiKey" class="form-control" placeholder="Enter API key">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <button id="startBtn" class="btn btn-primary me-2">Start</button>
+                            <button id="stopBtn" class="btn btn-secondary" disabled>Stop</button>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-2"><strong>Last price:</strong> <span id="lastPrice">—</span></div>
+                                <div class="mb-2"><strong>Short EMA:</strong> <span id="emaShort">—</span></div>
+                                <div class="mb-2"><strong>Long EMA:</strong> <span id="emaLong">—</span></div>
+                                <div class="mb-2"><strong>RSI:</strong> <span id="rsi">—</span></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div><strong>Decision:</strong></div>
+                                <div id="decision" class="decision-badge bg-light mt-2">—</div>
+                            </div>
+                            <div class="col-md-4">
+                                <div><strong>Log</strong></div>
+                                <div id="log"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="bg-white rounded p-4 shadow-sm">
+                        <h5>How it works</h5>
+                        <p class="small">This demo uses EMA(12)/EMA(26) crossovers plus RSI(14) to produce simple BUY/SELL/HOLD signals. Not financial advice.</p>
+                        <p class="small mb-0">Alpha Vantage is supported for live polling (you must supply an API key). Simulation is rate-free and recommended for demos.</p>
+>>>>>>> 2de67edb6fbb06f791a5f5fa67656ce7ba0feecf
                     </div>
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
         <!-- AI Analysis End -->
+=======
+
+>>>>>>> 2de67edb6fbb06f791a5f5fa67656ce7ba0feecf
 
         <!-- JavaScript Libraries -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -245,6 +327,7 @@
         <script src="lib/lightbox/js/lightbox.min.js"></script>
         <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
+<<<<<<< HEAD
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
         <script src="js/ai-trading.js"></script>
@@ -346,3 +429,12 @@ function sendToBackend(payload) {
     </body>
 
 </html>
+=======
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+        <script src="js/ai-trading.js"></script>
+    </body>
+
+</html>
+>>>>>>> 2de67edb6fbb06f791a5f5fa67656ce7ba0feecf
