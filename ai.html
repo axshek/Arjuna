@@ -1,11 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Analysis - StockAI</title>
-</head>
-<body>
-    
-</body>
+
+    <head>
+        <meta charset="utf-8">
+        <title>AI Analysis - StockAI</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet"> 
+
+        <!-- Icon Font Stylesheet -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link rel="stylesheet" href="lib/animate/animate.min.css"/>
+        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+
+        <style>
+            .ai-container {
+                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                min-height: calc(100vh - 200px);
+                padding: 40px 20px;
+            }
+            .ai-card {
+                background: white;
+                border-radius: 15px;
+                padding: 30px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+                margin-bottom: 30px;
+            }
+            .ai-card h3 {
+                color: var(--primary-color, #0066ff);
+                margin-bottom: 25px;
+                font-weight: 700;
+                border-bottom: 3px solid var(--primary-color, #0066ff);
+                padding-bottom: 15px;
+            }
+            .form-group-ai {
+                margin-bottom: 20px;
+            }
+            .form-group-ai label {
+                font-weight: 600;
+                color: #333;
+                margin-bottom: 8px;
+                display: block;
+            }
+            .form-group-ai input,
+            .form-group-ai select {
+                width: 100%;
+                padding: 12px 15px;
+                border: 2px solid #e0e0e0;
+                border-radius: 8px;
+                font-size: 14px;
+                transition: all 0.3s ease;
+            }
+            .form-group-ai input:focus,
+            .form-group-ai select:focus {
+                outline: none;
+                border-color: var(--primary-color, #0066ff);
+                box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+            }
+            .btn-ai {
+                background: var(--primary-color, #0066ff);
+                color: white;
+                padding: 12px 30px;
+                border: none;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                width: 100%;
+            }
+            .btn-ai:hover {
+                background: #0052cc;
+                transform: translateY(-2px);
+                box-shadow: 0 10px 20px rgba(0, 102, 255, 0.3);
+            }
+            #result {
+                background: #f8f9fa;
+                border-left: 5px solid var(--primary-color, #0066ff);
+                border-radius: 8px;
+                padding: 20px;
+                margin-top: 20px;
+                display: none;
+            }
+            #result.show {
+                display: block;
+            }
+            #result h3 {
+                color: var(--primary-color, #0066ff);
+                margin-top: 0;
+            }
+            #result p {
+                margin-bottom: 8px;
+                color: #555;
+            }
+            .result-item {
+                display: flex;
+                justify-content: space-between;
+                padding: 10px 0;
+                border-bottom: 1px solid #ddd;
+            }
+            .result-item:last-child {
+                border-bottom: none;
+            }
+            .result-label {
+                font-weight: 600;
+                color: #333;
+            }
+            .result-value {
+                color: var(--primary-color, #0066ff);
+                font-weight: 600;
+            }
+            .hr-ai {
+                border: none;
+                height: 2px;
+                background: linear-gradient(to right, transparent, var(--primary-color, #0066ff), transparent);
+                margin: 30px 0;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner End -->
+
+        <!-- Navbar & Hero Start -->
+        <div class="container-fluid position-relative p-0">
+            <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+                <a href="index.html" class="navbar-brand p-0">
+                    <h1 class="text-primary"><i class="fas fa-brain me-3"></i>StockAI</h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto py-0">
+                        <a href="index.html" class="nav-item nav-link">Home</a>
+                        <a href="ai.html" class="nav-item nav-link active">AI Analysis</a>
+                        <a href="contact.html" class="nav-item nav-link">Get Started</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <!-- Navbar & Hero End -->
+
+        <!-- AI Analysis Start -->
+        <div class="ai-container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <div class="text-center mb-5">
+                            <h1 class="display-5 mb-3" style="color: #333;">AI Trading Decision System</h1>
+                            <p class="fs-5" style="color: #666;">Get intelligent BUY, SELL, or HOLD recommendations powered by advanced machine learning algorithms</p>
+                        </div>
+
+                        <!-- CSV Upload Section -->
+                        <div class="ai-card wow fadeInUp" data-wow-delay="0.2s">
+                            <h3><i class="fas fa-file-csv me-2"></i>Option 1: CSV Upload</h3>
+                            <div class="form-group-ai">
+                                <label for="csvFile">📂 Select CSV File</label>
+                                <input type="file" id="csvFile" accept=".csv" class="form-control">
+                                <small class="text-muted d-block mt-2">Upload a CSV file with historical price data</small>
+                            </div>
+                            <button onclick="predictCSV()" class="btn-ai">
+                                <i class="fas fa-analysis me-2"></i>Get Decision from CSV
+                            </button>
+                        </div>
+
+                        <div class="hr-ai"></div>
+
+                        <!-- Manual Input Section -->
+                        <div class="ai-card wow fadeInUp" data-wow-delay="0.4s">
+                            <h3><i class="fas fa-keyboard me-2"></i>Option 2: Manual Input</h3>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group-ai">
+                                        <label for="prevPrice">📊 Open Price</label>
+                                        <input id="prevPrice" type="number" placeholder="Enter opening price" step="0.01">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group-ai">
+                                        <label for="currPrice">📈 Close Price</label>
+                                        <input id="currPrice" type="number" placeholder="Enter closing price" step="0.01">
+                                    </div>
+                                </div>
+                            </div>
+                            <button onclick="predictManual()" class="btn-ai">
+                                <i class="fas fa-check-circle me-2"></i>Get Decision from Manual Input
+                            </button>
+                        </div>
+
+                        <div class="hr-ai"></div>
+
+                        <!-- Stock Status Section -->
+                        <div class="ai-card wow fadeInUp" data-wow-delay="0.6s">
+                            <h3><i class="fas fa-wallet me-2"></i>Stock Holding Status</h3>
+                            <div class="form-group-ai">
+                                <label for="holding">🏦 Select Your Current Position</label>
+                                <select id="holding">
+                                    <option value="0">❌ No stock held</option>
+                                    <option value="1">✅ Currently holding stock</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Result Section -->
+                        <div id="result" class="ai-card wow fadeInUp" data-wow-delay="0.8s">
+                            <h3><i class="fas fa-chart-pie me-2"></i>📊 AI Decision Results</h3>
+                            <div id="resultContent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- AI Analysis End -->
+
+        <!-- JavaScript Libraries -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/wow/wow.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/counterup/counterup.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+        <script src="js/ai-trading.js"></script>
+
+        <script>
+function predictManual() {
+  if (!document.getElementById('prevPrice').value || !document.getElementById('currPrice').value) {
+    alert('Please enter both Open and Close prices');
+    return;
+  }
+  
+  sendToBackend({
+    mode: "manual",
+    prev_price: document.getElementById('prevPrice').value,
+    curr_price: document.getElementById('currPrice').value,
+    holding: document.getElementById('holding').value
+  });
+}
+
+function predictCSV() {
+  const file = document.getElementById('csvFile').files[0];
+  if (!file) {
+    alert("Please select a CSV file first");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    const lines = reader.result.split("\n");
+    let prices = [];
+    for (let i = 1; i < lines.length; i++) {
+      let p = parseFloat(lines[i].split(",").slice(-1)[0]);
+      if (!isNaN(p)) prices.push(p);
+    }
+    if (prices.length < 2) {
+      alert("CSV needs at least 2 prices");
+      return;
+    }
+
+    sendToBackend({
+      mode: "csv",
+      close_prices: prices,
+      holding: document.getElementById('holding').value
+    });
+  };
+  reader.readAsText(file);
+}
+
+function sendToBackend(payload) {
+  fetch("http://127.0.0.1:5000/predict", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(payload)
+  })
+  .then(r => r.json())
+  .then(d => {
+    const trend = d.price_trend==1?"Upward 📈":d.price_trend==-1?"Downward 📉":"Stable ⏸";
+    const hold = d.holding==1?"YES ✅":"NO ❌";
+    const resultContent = document.getElementById('resultContent');
+    resultContent.innerHTML = `
+      <div class="result-item">
+        <span class="result-label">Previous Price:</span>
+        <span class="result-value">$${parseFloat(d.previous_price).toFixed(2)}</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Current Price:</span>
+        <span class="result-value">$${parseFloat(d.current_price).toFixed(2)}</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Price Trend:</span>
+        <span class="result-value">${trend}</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Holding Stock:</span>
+        <span class="result-value">${hold}</span>
+      </div>
+      <div class="result-item" style="border-bottom: 2px solid var(--primary-color, #0066ff); padding-bottom: 15px; margin-bottom: 15px;">
+        <span class="result-label">AI Decision:</span>
+        <span class="result-value" style="font-size: 1.2em;">${d.decision}</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Allowed Actions:</span>
+        <span class="result-value">${d.allowed_actions.join(", ")}</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">AI Model:</span>
+        <span class="result-value">${d.model}</span>
+      </div>
+    `;
+    document.getElementById('result').classList.add('show');
+  })
+  .catch(e => {
+    alert("Error: Could not connect to AI backend. Make sure the server is running.");
+    console.error(e);
+  });
+}
+        </script>
+
+    </body>
+
 </html>

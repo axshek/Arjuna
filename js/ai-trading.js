@@ -1,36 +1,42 @@
-// StockAI - AI Trading Signals Handler
+// ================================
+// StockAI - REAL RL Trading Signals
+// ================================
 (function ($) {
     "use strict";
 
-    // AI Signal Simulator
-    const AISignals = {
-        stocks: [
-            { symbol: 'AAPL', name: 'Apple Inc.', signal: 'BUY', confidence: 92 },
-            { symbol: 'MSFT', name: 'Microsoft Corp.', signal: 'HOLD', confidence: 78 },
-            { symbol: 'TSLA', name: 'Tesla Inc.', signal: 'SELL', confidence: 85 },
-            { symbol: 'GOOGL', name: 'Google LLC.', signal: 'BUY', confidence: 88 },
-            { symbol: 'AMZN', name: 'Amazon.com Inc.', signal: 'HOLD', confidence: 81 },
-        ],
-        
-        getSignal: function(symbol) {
-            const stock = this.stocks.find(s => s.symbol === symbol);
-            return stock || null;
-        },
-        
-        getAllSignals: function() {
-            return this.stocks;
-        },
-        
-        updateSignal: function(symbol, newSignal) {
-            const stock = this.stocks.find(s => s.symbol === symbol);
-            if (stock) {
-                stock.signal = newSignal;
-                stock.confidence = Math.floor(Math.random() * (95 - 70) + 70);
-            }
-        }
-    };
+    // ================================
+    // 🔥 RL BACKEND CONFIG
+    // ================================
+    const BACKEND_URL = "http://127.0.0.1:5000/predict";
 
+    // ================================
+    // 🔥 FUNCTION: Call RL Backend
+    // ================================
+    function getRLDecision(prevPrice, currPrice, shares, callback) {
+        fetch(BACKEND_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                prev_price: prevPrice,
+                curr_price: currPrice,
+                shares: shares
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            callback(data);
+        })
+        .catch(error => {
+            console.error("AI Backend Error:", error);
+            alert("AI Server is not reachable. Please try again later.");
+        });
+    }
+
+    // ================================
     // Spinner
+    // ================================
     var spinner = function () {
         setTimeout(function () {
             if ($('#spinner').length > 0) {
@@ -39,11 +45,15 @@
         }, 1);
     };
     spinner(0);
-    
-    // Initiate the wowjs
+
+    // ================================
+    // Initiate WOW.js
+    // ================================
     new WOW().init();
 
+    // ================================
     // Sticky Navbar
+    // ================================
     $(window).scroll(function () {
         if ($(this).scrollTop() > 45) {
             $('.navbar').addClass('sticky-top shadow-sm');
@@ -52,7 +62,9 @@
         }
     });
 
-    // Hero Header carousel
+    // ================================
+    // Hero Header Carousel
+    // ================================
     $(".header-carousel").owlCarousel({
         animateOut: 'fadeOut',
         items: 1,
@@ -62,14 +74,16 @@
         smartSpeed: 500,
         dots: true,
         loop: true,
-        nav : true,
-        navText : [
+        nav: true,
+        navText: [
             '<i class="bi bi-arrow-left"></i>',
             '<i class="bi bi-arrow-right"></i>'
         ],
     });
 
-    // Blog carousel
+    // ================================
+    // Blog Carousel
+    // ================================
     $(".blog-carousel").owlCarousel({
         autoplay: true,
         smartSpeed: 1500,
@@ -77,37 +91,31 @@
         dots: false,
         loop: true,
         margin: 25,
-        nav : true,
-        navText : [
+        nav: true,
+        navText: [
             '<i class="bi bi-arrow-left"></i>',
             '<i class="bi bi-arrow-right"></i>'
         ],
-        responsive : {
-            0 : {
-                items: 1
-            },
-            576 : {
-                items: 1
-            },
-            768 : {
-                items: 2
-            },
-            992 : {
-                items: 3
-            },
-            1200 : {
-                items: 3
-            }
+        responsive: {
+            0: { items: 1 },
+            576: { items: 1 },
+            768: { items: 2 },
+            992: { items: 3 },
+            1200: { items: 3 }
         }
     });
 
+    // ================================
     // Counter Up
+    // ================================
     $('[data-toggle="counter-up"]').counterUp({
         delay: 5,
         time: 2000
     });
 
-    // Back to top button
+    // ================================
+    // Back to Top Button
+    // ================================
     $(window).scroll(function () {
         if ($(this).scrollTop() > 300) {
             $('.back-to-top').fadeIn('slow');
@@ -115,19 +123,32 @@
             $('.back-to-top').fadeOut('slow');
         }
     });
+
     $('.back-to-top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
+        $('html, body').animate({ scrollTop: 0 }, 1500, 'easeInOutExpo');
         return false;
     });
 
-    // AI Signal Click Handler
-    $(document).on('click', '[data-signal]', function(e) {
+    // ================================
+    // 🔥 REAL AI SIGNAL HANDLER
+    // ================================
+    $(document).on('click', '[data-signal]', function (e) {
         e.preventDefault();
+
         const symbol = $(this).data('signal');
-        const signal = AISignals.getSignal(symbol);
-        if (signal) {
-            alert(`${signal.name} (${signal.symbol})\nSignal: ${signal.signal}\nConfidence: ${signal.confidence}%`);
-        }
+
+        // TEMP demo prices (later connect live API)
+        const prevPrice = 1440;
+        const currPrice = 1445;
+        const shares = 0;
+
+        getRLDecision(prevPrice, currPrice, shares, function (result) {
+            alert(
+                "Symbol: " + symbol + "\n" +
+                "AI Decision: " + result.decision + "\n" +
+                "Model: Reinforcement Learning Agent"
+            );
+        });
     });
 
 })(jQuery);
